@@ -1,0 +1,25 @@
+
+
+name: Linux Build
+
+on: push
+
+jobs:
+  build:
+    name: Build on Ubuntu
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+        ref: b35641f4a3c62aa86a0b3c983d163bc0fe36026d
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev libwayland-dev libxkbcommon-dev
+    - name: Build C Code
+      run: |
+        mkdir build
+        cmake -S ./ -B build
+        cd build
+        make
